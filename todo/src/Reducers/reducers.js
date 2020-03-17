@@ -3,7 +3,7 @@ export const initialState = {
     currentTodos: [
         {
             item: 'Learn about reducers',
-            completed: true,
+            completed: false,
             id: 1
         },
         {
@@ -19,31 +19,36 @@ export const initialState = {
     ]
 }
 
-export const reducer = (state, action) => {
+export const reducer = (state = initialState, action) => {
     console.log("This is the action:", action);
     switch(action.type) {
         case 'ADD_TODO':
+        const newTodo = {
+            item: action.payload,
+            completed: false,
+            id: new Date()
+        }
             return {
                 ...state,
-                todos: state.currentTodos.map(item => {
-                    if (item.id === action.payload) {
-                        return {...item, completed: !item.completed}
-                    } else {
-                        return item;
-                    }
-                })
+                currentTodos: [...state.currentTodos, newTodo]
             };
         case 'TOGGLE_COMPLETED':
             return {
                 ...state,
-                completed: !state.completed,
-                item: state.item,
-                id: new Date()
+                currentTodos: state.currentTodos.map(item => {
+                    if(item.id === action.payload) {
+                    return {...item, 
+                    completed: !item.completed
+                    };
+                } else {
+                    return item;
+                }
+                })
             };
         case 'CLEAR_COMPLETED':
             return {
                 ...state,
-                todos: state.todos.filter(item => !item.completed)
+                currentTodos: state.currentTodos.filter(item => !item.completed)
             }
             default:
                 return state;

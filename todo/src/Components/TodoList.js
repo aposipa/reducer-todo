@@ -2,7 +2,7 @@ import React from "react";
 import Todo from "./Todo";
 
 const TodoList = (props) => {
-    // console.log(props.state.currentTodos)
+    console.log(props.state.currentTodos)
     return(
         <div className="todo-list">
             {props.state.currentTodos.map(item => (
