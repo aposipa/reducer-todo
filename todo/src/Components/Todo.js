@@ -12,7 +12,7 @@ const Todo = (props) => {
         props.dispatch({type: "TOGGLE_COMPLETED", payload: props.item.id})
 
     return (
-        <div key={props.item.id} className={todoListItem} onClick={handleClick}>
+        <div key={props.item.id} className={`item${props.item.completed ? ' completed' : ''}`} onClick={handleClick}>
             {props.item.item}
         </div>
     );
